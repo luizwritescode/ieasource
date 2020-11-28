@@ -6,8 +6,6 @@ import { useForm, Controller } from "react-hook-form";
 
 import { RootReducer, SetupReducer } from '../reducers'
 
-import { RootContext } from '../Game'
-
 import {styles} from '../public/styles/styles'
 import { Context } from '../store';
 
@@ -38,35 +36,38 @@ const SetupScreen = (props) => {
         let players = Array()
 
         Object.entries(data).forEach( (entry,i) => {
-            if(entry[1]==="") players.push({name:default_names[i]})
-            else players.push({name:entry[1]})
+            if(entry[1]==="") players.push({name:default_names[i],points:0})
+            else players.push({name:entry[1],points:0})
         })
 
-        console.log(players)
         dispatch({type:"submit", payload: data})
-        ROOT_DISPATCH({type:"start_game", players: players})
-        props.navigation.navigate('Game', { screen:'Game'})
+        ROOT_DISPATCH({type:"register_players", players: players})
+        ROOT_DISPATCH({type:"start_game"})
+        props.navigation.navigate('Game', { screen:'GameScreen'})
     }
       return(
-        <Container>
-        <View style={styles.row}>
-          <Text>numero de equipes</Text>
+        <View style={styles.container}>
+        <View style={[styles.row]}>
+          
+
+          <Text style={[styles.h2,{marginBottom:'10%'}]}>numero de equipes</Text>
           <NumInput 
             value = {state.numOfPlayers}
             dispatch={dispatch}
-        />
+            />
+            
           
         </View>
-        <View>
+        <View style={styles.row}>
         <NamesInput 
             dispatch={dispatch}
             numOfPlayers={state.numOfPlayers}
             control={control}/>
         </View>
-        <View>
+        <View style={styles.row}>
           <Button title="Jogar" onPress={handleSubmit(onSubmit)}/>
         </View>
-        </Container>
+        </View>
         
       )
   }

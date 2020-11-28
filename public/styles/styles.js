@@ -1,36 +1,50 @@
 import {StyleSheet} from 'react-native'
 
+// light purple 9578BC
 export const styles = StyleSheet.create({
     bgPurple:{
         backgroundColor: "#7851a9"
     },
     bgPink:{
-        backgroundColor: "#7851a9"
+        backgroundColor: "#EAABDA"
     },
     bgWhite:{
-        backgroundColor: "#7851a9"
+        backgroundColor: "#f8f8f8"
     },
     bgBlack:{
-        backgroundColor: "#7851a9"
+        backgroundColor: "#0a0a0a"
+    },
+    bgBlue:{
+        backgroundColor: "#B5DEF4"
+    },
+    bgRed:{
+        backgroundColor: "#EB8781"
+    },
+
+    fontBlue:{
+        color: "#B5DEF4"
+    },
+    fontDarkBlue:{
+        color: "#33a4e0"
     },
     fontPurple:{
         color: "#7851a9"
     },
     fontPink: {
-        color: "pink"
+        color: "#EAABDA"
 
     },
     fontWhite: {
-        color: "white"
+        color: "f8f8f8"
 
     },
 
     fontRed: {
-        color: "red"
+        color: "#EB8781"
     },
 
     fontGreen: {
-        color: "green"
+        color: "#78BC7D"
     },
     container: {
       flex: 1,
@@ -45,11 +59,20 @@ export const styles = StyleSheet.create({
         flex:1,
         justifyContent: "space-evenly"
     },
-    row: {display:"flex", flexDirection:"column",flex:"1", justifyContent:"center", alignItems:"center"},
+    row: {display:"flex", flexDirection:"column",flex:1, justifyContent:"center", alignItems:"center"},
     numInput: {
         flexDirection: 'row',
         minWidth: '100%',
         justifyContent: 'space-evenly'
+    },
+    button: {
+        fontSize:40,
+        height:100,
+        minWidth:'100px'
+    },
+    buttonText: {
+        fontSize:40,
+        height:50
     },
     carta: {
         minWidth: "60vw",

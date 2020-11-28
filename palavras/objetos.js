@@ -1,4 +1,4 @@
-Ábaco
+export const objetos = `Ábaco
 Abafador
 Abajur
 Abraçadeira
@@ -57,4 +57,4 @@ Assadeira
 Astrógrafo
 Astrolábio
 Autorama
-Azulejo
+Azulejo`

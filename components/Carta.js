@@ -30,11 +30,11 @@ export const Carta = (props) => {
         <View style={styles.container} >
             <View>
                 <Animated.View style={[styles.flipCard, styles.flipCardBack, props.backStyle]}>
-                    <Text  style={[styles.h1, styles.fontPurple]}>palavra</Text>
+                    <Text  style={[styles.h1, styles.fontPurple]}>{props.palavra.word}</Text>
                 </Animated.View>
 
                 <Animated.View style={[styles.flipCard, props.frontStyle]}>
-                    <Text style={[styles.h1, styles.fontWhite]}>carta</Text>
+                    <Text style={[styles.h1, styles.fontWhite]}>{props.categoria}</Text>
                 </Animated.View>
           </View>
 

@@ -8,7 +8,6 @@ import { NavigationContainer } from '@react-navigation/native'
 
 
 import {styles} from './public/styles/styles'
-import css from './public/styles/styles.css'
 
 import { GameReducer, RootReducer } from './reducers'
 
@@ -18,7 +17,8 @@ import GameScreen from './screens/GameScreen'
 import TitleScreen from './screens/TitleScreen'
 import SetupScreen from './screens/SetupScreen'
 
-import objetos from './palavras'
+import Tabuleiro from './components/Tabuleiro';
+
 
 const Head = (props) => {
   return (
@@ -29,67 +29,79 @@ const Head = (props) => {
   )
 }
 
+const RootStack = createStackNavigator()
 const TitleStack = createStackNavigator()
 const GameStack = createStackNavigator()
 
 export const RootContext = React.createContext()
 
 const QuitAlert = () => {
-  Alert.alert(
+  return Alert.alert(
     "Tem certeza que quer abandonar o jogo?",
     [
       {
         text: "Não",
-        onPress: () => console.log("Cancel Pressed"),
+        
         style: "cancel"
       },
-      { text: "Sim", onPress: () => console.log("OK Pressed") }
+      { text: "Sim" }
     ],
     { cancelable: false }
-  );
+  )
+  
 }
 
-const ShowBoardButton = (props) => {
-  return null
+const TitleNavigator = (props) => {
+
+  
+  return(
+    <TitleStack.Navigator initialRouteName={"TitleScreen"}>
+                
+                      <TitleStack.Screen
+                        name="TitleScreen"
+                        component={TitleScreen}
+                        />
+                        <TitleStack.Screen
+                        name="SetupScreen"
+                        component={SetupScreen}
+                        />
+                      </TitleStack.Navigator>
+
+  )
 }
 
-const QuitButton = (props) => {
-  return <Button title="quit" onPress={() => QuitAlert()}/>
-}
+const GameNavigator = (props) => {
 
-const Game = (props) => {
+const ShowBoardButton = () => {return <Button title="tabuleiro"  onPress={() => props.navigation.navigate('Game', {screen:'Tabuleiro'})}/>}
+const QuitButton = () => {return <Button title="quit" onPress={() => QuitAlert()}/>}
 
-
-    const [state, dispatch] = React.useReducer(RootReducer, ROOT_STATE)
-
-    return(
-      
-      
-      <Container style={{display:"flex", flex:"1", flexDirection:'column', justifyContent:"space-evenly"}}>
-        <NavigationContainer>
-          <Store>
-
-          
-            <GameStack.Navigator initialRouteName= "TitleScreen" >
+  return(
+            <GameStack.Navigator initialRouteName="GameScreen" >
               <GameStack.Screen
-                name="Game"
+                name="GameScreen"
                 component={GameScreen}
                 options={{headerTitleStyle:{diplay:"none"}, headerLeft: ShowBoardButton, headerRight: QuitButton}}
                 /> 
-              <TitleStack.Screen
-                name="TitleScreen"
-                component={TitleScreen}
+              <GameStack.Screen
+                name="Tabuleiro"
+                component={Tabuleiro}
                 />
-              <TitleStack.Screen
-                name="SetupScreen"
-                component={SetupScreen}
-                />
+            </GameStack.Navigator>
+  )
+}
+const Game = (props) => {
 
-              </GameStack.Navigator>
-         
+    return(
+      <View style={{display:"flex", flex:"1", flexDirection:'column', justifyContent:"space-evenly"}}>
+        <Store>
+        <NavigationContainer>
+            <RootStack.Navigator initialRouteName= "Title">
+              <RootStack.Screen name="Title" component={TitleNavigator} options={{headerShown: false}}/>
+              <RootStack.Screen name="Game" component={GameNavigator} options={{headerShown: false}}/>
+            </RootStack.Navigator> 
+          </NavigationContainer>
           </Store>
-        </NavigationContainer>
-      </Container>
+      </View>
 
     )
   }

@@ -1,4 +1,5 @@
 import { flipCard } from './components/Carta'
+import palavras, { pickWord } from './palavras'
 
 
 export function SetupReducer(state, action) {
@@ -46,15 +47,22 @@ export function GameReducer(state, action) {
             flipCard(state)
             let turns = state.turns + 1
             return {...state, cardVisible:false, gameActive:false, timesUp:false, turns: turns, playerTurn: turns % state.players.length}
+        case 'pick_word':
+            return {...state, word: pickWord(action.bank)}
+        case 'acerto':
+            state.players[action.player].points = state.players[action.player].points + action.points
+
+            return {...state }
+
     }
 }
 
 export function RootReducer(state, action) {
     switch(action.type) {
+        case 'register_players':
+            return {...state, players: action.players}
         case 'start_game': 
+            return {...state, gameStarted: true, palavras: palavras, categoria: 'random'}
 
-            console.log(action.players)
-
-            return {...state, gameStarted: true, players: action.players}
     }
 }
