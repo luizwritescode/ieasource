@@ -3,6 +3,8 @@ import React from 'react'
 
 import { objetos } from './palavras/objetos'
 
+import objetos_pontuados from './palavras/objetos_pontos.json'
+
 const OBJETOS = objetos.split("\n")
 
 const loadWordJSON = (words) => {
@@ -16,11 +18,13 @@ const loadWordJSON = (words) => {
 }
 
 const palavras = {
-    objetos: loadWordJSON(OBJETOS),
+    objetos: objetos_pontuados,
     // cep: loadWordJSON(),
     // cinema: loadWordJSON(),
     // acoes: loadWordJSON(),
 }
+
+console.log(palavras)
 
 export function pickWord( bank ) {
     var keys = Object.keys(bank)

@@ -1,5 +1,6 @@
 import { flipCard } from './components/Carta'
 import palavras, { pickWord } from './palavras'
+import { Animated } from 'react-native'
 
 
 export function SetupReducer(state, action) {
@@ -51,7 +52,6 @@ export function GameReducer(state, action) {
             return {...state, word: pickWord(action.bank)}
         case 'acerto':
             state.players[action.player].points = state.players[action.player].points + action.points
-
             return {...state }
 
     }
@@ -63,6 +63,8 @@ export function RootReducer(state, action) {
             return {...state, players: action.players}
         case 'start_game': 
             return {...state, gameStarted: true, palavras: palavras, categoria: 'random'}
-
+        case 'player_move':
+            Animated.spring(state.players[action.playerTurn].animatedValue, {toValue: action.value }).start()
+            return state
     }
 }

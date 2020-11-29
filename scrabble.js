@@ -1,4 +1,3 @@
-const fs = require('fs');
 
 var scores = ""
 
@@ -19,6 +18,7 @@ const points = {
     n: 3,
     o: 1,
     p: 2,
+    q: 4,
     r: 1,
     s: 1,
     t: 1,
@@ -31,36 +31,15 @@ const points = {
     cc: 3
 }
 
-function processFile(string) {
-    var words = string.split("\n")
 
-    for( i = 0; i < words.length; i++) {
-       words[i] = words[i].trim().replace('\r', '').replace(/\s/g, '').replace('-', '').toLowerCase()
-       words[i] = words[i].normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-    }
+module.exports = points
 
-    words.forEach( (word) => {
-        console.log(score(word))
-    })
-}
-
-function score(word) {
-    var split = word.split("")
-    var ret = 0
-    for ( i = 0; i < split.length; i++) {
-        ret = ret + points[split[i]]
-    }
-    ret = word + ", " + ret
-    return ret
-}
-
-
-fs.readFile('objetos.txt', function read(err,data) {
-    if(err) 
-        throw err
-    else
-        processFile(data.toString())
-})
+// fs.readFile('objetos.txt', function read(err,data) {
+//     if(err) 
+//         throw err
+//     else
+//         processFile(data.toString())
+// })
 
 
 // fs.writeFile("pontos.txt", "oi", function(err) {

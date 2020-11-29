@@ -14,9 +14,8 @@ import { Carta, flipCard } from '../components/Carta'
 
 const GameScreen = (props) => {
     const [ROOT_STATE, ROOT_DISPATCH] = React.useContext(Context)
-
     const INITIAL_STATE = {
-        players:  default_players ||  default_players,
+        players:  ROOT_STATE.players ||  default_players,
         gameStarted: true,
         gameActive: false,
         cardVisible: false,
@@ -29,6 +28,7 @@ const GameScreen = (props) => {
         timesUp: false,
         cardYRotation: 0,
         animatedValue: new Animated.Value(0),
+        playerAnimatedValue: new Animated.Value(0),
         playerTurn:0,
         turns:0,
         word: pickWord(ROOT_STATE.palavras.objetos),
@@ -63,12 +63,15 @@ const GameScreen = (props) => {
     }
 
     
-    function movePlayer() {
+    function movePlayer(playerTurn, n) {
         props.navigation.navigate('Game', { screen:'GameScreen'})
+        var val = n * 150
+        ROOT_DISPATCH({type: "player_move", playerTurn:playerTurn, value: val})
+        window.scrollTo(0, n*150)
     }
-
-    movePlayer()
     
+    movePlayer(ROOT_STATE.playerTurn, 2)
+
     function nextPlayer() {
         dispatch({type:"next_player"})
     }
@@ -81,6 +84,7 @@ const GameScreen = (props) => {
 
     function acertei() {
         dispatch({type:'acerto', player: state.playerTurn, points: 1})
+        movePlayer()
         console.log(state.players)
     }
      

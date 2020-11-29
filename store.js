@@ -5,15 +5,16 @@ import  palavras  from './palavras'
 export const ROOT_STATE = {
     gameStarted: false,
     players: [ 
-        {name: "Equipe Cao", points: 0},
-     {name: "Equipe Pino"},
-     {name: "Equipe Peka"},
-     {name: "Equipe Roca"},
-],
+        {name: "Equipe Cao", points: 0, animatedValue: 0},
+        {name: "Equipe Pino", points: 0, animatedValue: 0},
+        {name: "Equipe Peka", points: 0, animatedValue: 0},
+        {name: "Equipe Roca", points: 0, animatedValue: 0},
+    ],
     palavras: palavras,
     categoria: "objetos",
     tabuleiro: [],
-    turn: 0
+    playerTurn: 0,
+    turn: 0,
 }
 
 export const FUNCTIONS = {

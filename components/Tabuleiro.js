@@ -18,8 +18,6 @@ const Tabuleiro = (props) => {
         var pinos = []
 
         var animatedMove = new Animated.Value(0)
-
-        
     
         ROOT_STATE.players.forEach( (p,i) => {
             pinos.push(<Pino key={i} position={PinoPositions[ROOT_STATE.players.length][i]} animatedMove={animatedMove} casa={p.points} movePlayer={FUNCTIONS.movePlayer}/>)
@@ -52,7 +50,6 @@ const Tabuleiro = (props) => {
 
         
         <FlatList contentContainerStyle={BoardStyle.tabuleiro} renderItem={Casa} data={tabuleiro} keyExtractor={ casa => casa.key} />
-       
             {pinos}
         </View>
     )
@@ -122,32 +119,24 @@ Scroll(2)
 
 const Pino = (props) => {
 
-    var animatedVal = new Animated.Value(0)
-
+    const [ROOT_STATE, dispatch] = React.useContext(Context)
+    var p = ROOT_STATE.players,
+        t = ROOT_STATE.playerTurn
     var center = screenWidth/2 - 20
 
     var top = props.position[0] + 'px'
     var left = props.position[1] + center + 'px'
 
-    
-    function movePlayer(n) {
-        var val = n * 150
-        Animated.spring(animatedVal, {toValue: val }).start()
-        window.scrollTo(0,n*150)
-    }  
-    
-
     const position = {
         top:top,
         left:left,
-        transform: [{translateY: animatedVal}]
+        transform: [{translateY: p[t].animatedValue]
     }
 
     
 
     return(
         <Animated.View style={[BoardStyle.pino, position]} >
-            <Button onPress={() => movePlayer(2)} />
         </Animated.View>
     )
 }
